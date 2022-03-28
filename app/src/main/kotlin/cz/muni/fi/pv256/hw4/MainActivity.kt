@@ -5,7 +5,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         mavm.data.observe(this) { newName ->
             counter.text = newName.toString()
         }
-
 
         val decrementBtn = findViewById<Button>(R.id.decrement)
         decrementBtn.setOnClickListener {
