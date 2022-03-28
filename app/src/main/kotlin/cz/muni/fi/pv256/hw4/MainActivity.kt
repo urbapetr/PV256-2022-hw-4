@@ -19,10 +19,10 @@ class MainActivity : AppCompatActivity() {
         // 3. set onClickListeners for buttons
         val mavm: MainActivityViewModel by viewModels()
         val counter = findViewById<TextView>(R.id.counter)
-        val myObserver = Observer<Int> { newName ->
+        mavm.data.observe(this) { newName ->
             counter.text = newName.toString()
         }
-        mavm.data.observe(this, myObserver)
+
 
         val decrementBtn = findViewById<Button>(R.id.decrement)
         decrementBtn.setOnClickListener {

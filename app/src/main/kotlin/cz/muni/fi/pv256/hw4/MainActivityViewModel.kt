@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 
 // TODO use SavedStateHandle
-class MainActivityViewModel(savedStateHandle: SavedStateHandle) : ViewModel(), Counter {
+class MainActivityViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(), Counter {
     companion object {
         private const val KEY_COUNT = "key_count"
     }
@@ -14,11 +14,7 @@ class MainActivityViewModel(savedStateHandle: SavedStateHandle) : ViewModel(), C
     private val _count: MutableLiveData<Int> by lazy {
         // TODO initialize with saved value
         MutableLiveData<Int>().apply {
-            value = if (savedStateHandle.contains(KEY_COUNT)) {
-                savedStateHandle.get(KEY_COUNT)
-            } else {
-                0
-            }
+            value = savedStateHandle[KEY_COUNT] ?: 0
         }
     }
 
@@ -46,8 +42,6 @@ class MainActivityViewModel(savedStateHandle: SavedStateHandle) : ViewModel(), C
      */
     private fun saveCountState() {
         // TODO
-        val map = mapOf<String, Int>()
-        map.plus(Pair(KEY_COUNT, _count.value))
-        SavedStateHandle(map)
+        savedStateHandle[KEY_COUNT] = _count.value
     }
 }
